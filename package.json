@@ -15,7 +15,6 @@
   "lint-staged": {
     "**/*.js": [
       "format",
-      "lint --fix",
       "git add"
     ]
   },
