@@ -189,18 +189,19 @@ readFile(path.join(__dirname, 'android/app/src/main/res/values/strings.xml'))
               // Create new bundle folder if doesn't exist yet
               if (!fs.existsSync(fullNewBundlePath)) {
                 shell.mkdir('-p', fullNewBundlePath);
-                const move = shell.exec(`mv "${fullCurrentBundlePath}/"* "${fullNewBundlePath}" 2>/dev/null`);
-                const successMsg = `${newBundlePath} ${colors.green('BUNDLE INDENTIFIER CHANGED')}`;
+              }
 
-                if (move.code === 0) {
+              const move = shell.exec(`mv "${fullCurrentBundlePath}/"* "${fullNewBundlePath}" 2>/dev/null`);
+              const successMsg = `${newBundlePath} ${colors.green('BUNDLE INDENTIFIER CHANGED')}`;
+
+              if (move.code === 0) {
+                console.log(successMsg);
+              } else if (move.code === 128) {
+                // if "outside repository" error occured
+                if (shell.mv('-f', fullCurrentBundlePath + '/*', fullNewBundlePath).code === 0) {
                   console.log(successMsg);
-                } else if (move.code === 128) {
-                  // if "outside repository" error occured
-                  if (shell.mv('-f', fullCurrentBundlePath + '/*', fullNewBundlePath).code === 0) {
-                    console.log(successMsg);
-                  } else {
-                    console.log(`Error moving: "${currentJavaPath}" "${newBundlePath}"`);
-                  }
+                } else {
+                  console.log(`Error moving: "${currentJavaPath}" "${newBundlePath}"`);
                 }
               }
 
