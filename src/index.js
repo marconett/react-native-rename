@@ -109,7 +109,7 @@ readFile(path.join(__dirname, 'android/app/src/main/res/values/strings.xml'))
 
               if (fs.existsSync(path.join(__dirname, element)) || !fs.existsSync(path.join(__dirname, element))) {
                 const copy = shell.exec(
-                  `cp -r "${path.join(__dirname, element)}" "${path.join(__dirname, dest)}" 2>/dev/null`
+                  `mv "${path.join(__dirname, element)}" "${path.join(__dirname, dest)}" 2>/dev/null`
                 );
 
                 if (copy.code === 0) {
@@ -174,7 +174,7 @@ readFile(path.join(__dirname, 'android/app/src/main/res/values/strings.xml'))
                 shell.mkdir('-p', fullNewBundlePath);
               }
 
-              const copy = shell.exec(`cp -r "${fullCurrentBundlePath}/"* "${fullNewBundlePath}" 2>/dev/null`);
+              const copy = shell.exec(`mv "${fullCurrentBundlePath}/"* "${fullNewBundlePath}" 2>/dev/null`);
               const successMsg = `${newBundlePath} ${colors.green('BUNDLE INDENTIFIER CHANGED')}`;
 
               if (copy.code === 0) {
