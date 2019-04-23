@@ -97,16 +97,6 @@ readFile(path.join(__dirname, 'android/app/src/main/res/values/strings.xml'))
             );
         }
 
-        if (!pattern.test(newName)) {
-          return console.log(
-            `"${newName}" is not a valid name for a project. Please use a valid identifier name (alphanumeric and space).`
-          );
-        }
-
-        if (newName === currentAppName || newName === nS_CurrentAppName || newName === lC_Ns_CurrentAppName) {
-          return console.log('Please try a different name.');
-        }
-
         // Move files and folders from ./config/foldersAndFiles.js
         const resolveFoldersAndFiles = new Promise(resolve => {
           listOfFoldersAndFiles.forEach((element, index) => {
